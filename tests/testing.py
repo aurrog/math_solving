@@ -1,15 +1,19 @@
 import cv2
 
 
-ip = '192.168.1.100'  # put ip address here
+ip = ''  # put your ip address here
 port = '4747'
 video_capture = cv2.VideoCapture(f"http://{ip}:{port}/video")
 
 
 while True:
-    ret, frame = video_capture.read()
-    frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-    cv2.imshow('Video', frame)
+    ret, image = video_capture.read()
+
+    image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+    # image = cv2.resize(image, (28, 28))
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    cv2.imshow('Video', image)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
